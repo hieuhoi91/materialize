@@ -1,5 +1,6 @@
 import {
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -39,5 +40,11 @@ export class UserController {
   @Get(":id")
   getUser(@UUIDParam("id") userId: string): Promise<UserDto> {
     return this.userService.getUser(userId);
+  }
+
+  //delete user
+  @Delete(":id")
+  deleteUser(@UUIDParam("id") userId: string): Promise<void> {
+    return this.userService.deleteUser(userId);
   }
 }

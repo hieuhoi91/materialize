@@ -142,4 +142,17 @@ export class UserService {
       ...userEntity,
     };
   }
+
+  //delete user from id
+  async deleteUser(userId: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new CustomHttpException({
+        statusCode: HttpStatus.BAD_REQUEST,
+        message: `User with id ${userId} not found`,
+        code: StatusCodesList.NotFound,
+      });
+    }
+    await this.userRepository.remove(user);
+  }
 }
